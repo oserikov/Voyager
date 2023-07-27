@@ -18,6 +18,7 @@ class Voyager:
     def __init__(
         self,
         mc_port: int = None,
+        mc_host: str = None,
         azure_login: Dict[str, str] = None,
         server_port: int = 3000,
         openai_api_key: str = None,
@@ -56,6 +57,7 @@ class Voyager:
         Critic agent is the self-verification in paper.
         Skill manager is the skill library in paper.
         :param mc_port: minecraft in-game port
+        :param mc_host: minecraft in-game host
         :param azure_login: minecraft login config
         :param server_port: mineflayer port
         :param openai_api_key: openai api key
@@ -103,6 +105,7 @@ class Voyager:
         # init env
         self.env = VoyagerEnv(
             mc_port=mc_port,
+            mc_host=mc_host,
             azure_login=azure_login,
             server_port=server_port,
             request_timeout=env_request_timeout,
