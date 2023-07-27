@@ -18,6 +18,7 @@ from .process_monitor import SubprocessMonitor
 class VoyagerEnv(gym.Env):
     def __init__(
         self,
+        mc_host=None,
         mc_port=None,
         azure_login=None,
         server_host="http://127.0.0.1",
@@ -25,13 +26,14 @@ class VoyagerEnv(gym.Env):
         request_timeout=600,
         log_path="./logs",
     ):
-        if not mc_port and not azure_login:
+        if not (mc_port and mc_host) and not azure_login:
             raise ValueError("Either mc_port or azure_login must be specified")
         if mc_port and azure_login:
             warnings.warn(
                 "Both mc_port and mc_login are specified, mc_port will be ignored"
             )
         self.mc_port = mc_port
+        self.mc_host = mc_host
         self.azure_login = azure_login
         self.server = f"{server_host}:{server_port}"
         self.server_port = server_port
@@ -57,7 +59,7 @@ class VoyagerEnv(gym.Env):
                 str(server_port),
             ],
             name="mineflayer",
-            ready_match=r"Server started on port (\d+)",
+            ready_match=r"Server started .*",
             log_path=U.f_join(self.log_path, "mineflayer"),
         )
 
@@ -78,7 +80,9 @@ class VoyagerEnv(gym.Env):
             print("Starting Minecraft server")
             self.mc_instance.run()
             self.mc_port = self.mc_instance.port
+            self.mc_host = self.mc_instance.host
             self.reset_options["port"] = self.mc_instance.port
+            self.reset_options["host"] = self.mc_instance.host
             print(f"Server started on port {self.reset_options['port']}")
         retry = 0
         while not self.mineflayer.is_running:
@@ -141,6 +145,7 @@ class VoyagerEnv(gym.Env):
 
         self.reset_options = {
             "port": self.mc_port,
+            "host": self.mc_host,
             "reset": options.get("mode", "hard"),
             "inventory": options.get("inventory", {}),
             "equipment": options.get("equipment", []),
