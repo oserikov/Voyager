@@ -31,6 +31,7 @@ class Voyager:
         action_agent_task_max_retries: int = 4,
         action_agent_show_chat_log: bool = True,
         action_agent_show_execution_error: bool = True,
+        bot_name: str = "bot",
         curriculum_agent_model_name: str = "gpt-4",
         curriculum_agent_temperature: float = 0,
         curriculum_agent_qa_model_name: str = "gpt-3.5-turbo",
@@ -68,6 +69,7 @@ class Voyager:
         :param reset_placed_if_failed: whether to reset placed blocks if failed, useful for building task
         :param action_agent_model_name: action agent model name
         :param action_agent_temperature: action agent temperature
+        :param bot_name: bot's username to distinguish bots
         :param action_agent_task_max_retries: how many times to retry if failed
         :param curriculum_agent_model_name: curriculum agent model name
         :param curriculum_agent_temperature: curriculum agent temperature

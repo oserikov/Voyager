@@ -61,7 +61,7 @@ function inject(bot) {
     bot._chat = bot.chat;
     bot.chat = (message) => {
         // action_count.chat++;
-        bot.emit("chatEvent", "bot", message);
+        bot.emit("chatEvent", bot.username, message);
         bot._chat(message);
     };
 
