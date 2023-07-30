@@ -29,7 +29,7 @@ app.post("/start", (req, res) => {
     bot = mineflayer.createBot({
         host: req.body.host, // minecraft server ip
         port: req.body.port, // minecraft server port
-        username: req.body.bot_name,
+        username: req.body.username,
         disableChatSigning: true,
         checkTimeoutInterval: 60 * 60 * 1000,
     });
@@ -419,9 +419,7 @@ app.post("/pause", (req, res) => {
 // Server listening to HOST localhost PORT 3000
 
 const DEFAULT_PORT = 3000;
-const DEFAULT_HOST = "localhost";
 const PORT = process.argv[3] || DEFAULT_PORT;
-const HOST = process.argv[2] || DEFAULT_HOST; 
 app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT} host ${HOST}`);
+    console.log(`Server started on port ${PORT}`);
 });
