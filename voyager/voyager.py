@@ -108,6 +108,7 @@ class Voyager:
         self.env = VoyagerEnv(
             mc_port=mc_port,
             mc_host=mc_host,
+            bot_name=bot_name,
             azure_login=azure_login,
             server_port=server_port,
             request_timeout=env_request_timeout,

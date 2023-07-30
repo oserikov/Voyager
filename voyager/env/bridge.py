@@ -20,6 +20,7 @@ class VoyagerEnv(gym.Env):
         self,
         mc_host=None,
         mc_port=None,
+        bot_name="bot",
         azure_login=None,
         server_host="http://127.0.0.1",
         server_port=3000,
@@ -34,6 +35,7 @@ class VoyagerEnv(gym.Env):
             )
         self.mc_port = mc_port
         self.mc_host = mc_host
+        self.username = bot_name
         self.azure_login = azure_login
         self.server = f"{server_host}:{server_port}"
         self.server_port = server_port
@@ -81,8 +83,10 @@ class VoyagerEnv(gym.Env):
             self.mc_instance.run()
             self.mc_port = self.mc_instance.port
             self.mc_host = self.mc_instance.host
+            self.username = self.mc_instance.username
             self.reset_options["port"] = self.mc_instance.port
             self.reset_options["host"] = self.mc_instance.host
+            self.reset_options["username"] = self.mc_instance.username
             print(f"Server started on port {self.reset_options['port']}")
         retry = 0
         while not self.mineflayer.is_running:
@@ -146,6 +150,7 @@ class VoyagerEnv(gym.Env):
         self.reset_options = {
             "port": self.mc_port,
             "host": self.mc_host,
+            "username": self.username,
             "reset": options.get("mode", "hard"),
             "inventory": options.get("inventory", {}),
             "equipment": options.get("equipment", []),
