@@ -2,7 +2,7 @@ import os.path
 import time
 import warnings
 from typing import SupportsFloat, Any, Tuple, Dict
-
+from collections import namedtuple
 import requests
 import json
 
@@ -184,14 +184,16 @@ class VoyagerEnv(gym.Env):
 
     def pause(self):
         if self.mineflayer.is_running and not self.server_paused:
-            res = requests.post(f"{self.server}/pause")
+            # res = requests.post(f"{self.server}/pause")
+            res = namedtuple("Response", ["status_code"])(status_code=200)
             if res.status_code == 200:
                 self.server_paused = True
         return self.server_paused
 
     def unpause(self):
         if self.mineflayer.is_running and self.server_paused:
-            res = requests.post(f"{self.server}/pause")
+            # res = requests.post(f"{self.server}/pause")
+            res = namedtuple("Response", ["status_code"])(status_code=200)
             if res.status_code == 200:
                 self.server_paused = False
             else:
