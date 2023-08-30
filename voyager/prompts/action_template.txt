@@ -43,6 +43,9 @@ Code:
     9) Do not write infinite loops or recursive functions.
     10) Do not use `bot.on` or `bot.once` to register event listeners. You definitely do not need them.
     11) Name your function in a meaningful way (can infer the task from the name).
+    12) do not consider using wooden axe unless you have it
+    13) before calling `mineBlock`, consider printing the name of the block by calling `bot.chat(block name)`
+
 
 You should only respond in the format as described below:
 RESPONSE FORMAT:

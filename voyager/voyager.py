@@ -184,7 +184,7 @@ class Voyager:
         )
         # step to peek an observation
         events = self.env.step(
-            "bot.chat(`/time set ${getNextTime()}`);\n"
+            ""# "bot.chat(`/time set ${getNextTime()}`);\n"
             + f"bot.chat('/difficulty {difficulty}');"
         )
         skills = self.skill_manager.retrieve_skills(query=self.context)
