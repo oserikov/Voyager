@@ -1,6 +1,10 @@
 import { Bot } from 'mineflayer'
-import { Block } from 'prismarine-block'
 import { Entity } from 'prismarine-entity'
+
+const registry = require('prismarine-registry')('1.8')
+
+const Block = require('prismarine-block')(registry)
+type Block = typeof Block
 
 export type Collectable = Block | Entity
 

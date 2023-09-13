@@ -1,17 +1,22 @@
-import { Bot } from "mineflayer";
-import { Block } from "prismarine-block";
-import { Movements, goals } from "mineflayer-pathfinder";
-import { TemporarySubscriber } from "./TemporarySubscriber";
-import { Entity } from "prismarine-entity";
-import { error } from "./Util";
-import { Vec3 } from "vec3";
-import { emptyInventoryIfFull, ItemFilter } from "./Inventory";
-import { findFromVein } from "./BlockVeins";
-import { Collectable, Targets } from "./Targets";
-import { Item } from "prismarine-item";
-import mcDataLoader from "minecraft-data";
 import { once } from "events";
 import { callbackify } from "util";
+
+import mcDataLoader from "minecraft-data";
+import { Bot } from "mineflayer";
+import { Movements, goals } from "mineflayer-pathfinder";
+import { Entity } from "prismarine-entity";
+import { Item } from "prismarine-item";
+import { Vec3 } from "vec3";
+
+import { findFromVein } from "./BlockVeins";
+import { ItemFilter, emptyInventoryIfFull } from "./Inventory";
+import { Collectable, Targets } from "./Targets";
+import { TemporarySubscriber } from "./TemporarySubscriber";
+import { error } from "./Util";
+const registry = require('prismarine-registry')('1.8')
+
+const Block = require('prismarine-block')(registry)
+type Block = typeof Block
 
 export type Callback = (err?: Error) => void;
 
@@ -183,7 +188,6 @@ async function mineBlock(
     ) {
         options.targets.removeTarget(block);
         throw error("Invalid block", "Block is not valid!");
-        // @ts-expect-error
     } else if (!bot.pathfinder.movements.safeToBreak(block)) {
         options.targets.removeTarget(block);
         throw error("Unsafe block", "Block is not safe to break!");
